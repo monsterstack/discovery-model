@@ -89,4 +89,4 @@ exports.connect = connect;
 
 exports.saveService = saveService;
 exports.findServiceByType = findServiceByType;
-exports.onChange = onChange;
+exports.onServiceChange = onServiceChange;
