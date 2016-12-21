@@ -26,7 +26,7 @@ describe('discovery-model', () => {
 
   it('change received when record added', function(done) {
     this.timeout(9000);
-    model.onChange({type: 'FooService'}, (err, change) => {
+    model.onServiceChange(['FooService'], (err, change) => {
       debug("Received change");
       debug(change);
       assert(change, "Result is not null");

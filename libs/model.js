@@ -55,18 +55,21 @@ const saveService = (service) => {
 }
 
 /**
- * Change feed for notifications when a service of interest has `changed`
+ * Change feed for notifications when a services of interest have `changed`
  * Resulting document holds reference to the record.  Use the record to close the
  * feed when no longer required.
+ * @params types Array of service types
+ * @param  cb Callback(err, changeNotification)
  *
  * Example
  * notification.record.closeFeed();
  *
  * @see makeChangeNotification
  */
-const onServiceChange = (params, cb) => {
-  ServiceDescriptor.filter(params).changes().then((feed) => {
-
+const onServiceChange = (serviceTypes, cb) => {
+  ServiceDescriptor.filter((service) => {
+    return thinky.r.expr(serviceTypes).contains(service("type"));
+  }).changes().then((feed) => {
     feed.each((err, doc) => {
       if(err) {
         debug("Received err from feed");
@@ -79,7 +82,6 @@ const onServiceChange = (params, cb) => {
           cb(null, makeChangeNotification(doc));
       }
     });
-
   });
 }
 
