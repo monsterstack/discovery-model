@@ -45,8 +45,14 @@ const connect = (options, dbName) => {
   return p;
 }
 
-const findServiceByType = (type) => {
+const findServicesByType = (type) => {
   return ServiceDescriptor.filter({type: type});
+}
+
+const findServicesByTypes = (types) => {
+  return ServiceDescriptor.filter((service) => {
+    return thinky.r.expr(types).contains(service("type"));
+  });
 }
 
 const saveService = (service) => {
@@ -90,5 +96,6 @@ exports.r = thinky.r;
 exports.connect = connect;
 
 exports.saveService = saveService;
-exports.findServiceByType = findServiceByType;
+exports.findServicesByType = findServicesByType;
+exports.findServicesByTypes = findServicesByTypes;
 exports.onServiceChange = onServiceChange;
