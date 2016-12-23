@@ -16,6 +16,7 @@ describe('discovery-model', () => {
       endpoint: 'http://foo.org/players',
       type: type,
       healthCheckRoute: '/health',
+      schemaRoute: '/schema',
       timestamp: new Date(),
       id: uuid.v1(),
       status: 'Online'

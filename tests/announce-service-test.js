@@ -18,6 +18,7 @@ describe('discovery-model', () => {
       endpoint: 'http://foo.org/players',
       type: 'PlayersService',
       healthCheckRoute: '/health',
+      schemaRoute: '/schema',
       timestamp: new Date(),
       id: uuid.v1()
     };
