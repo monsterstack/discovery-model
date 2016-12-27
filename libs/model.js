@@ -103,12 +103,20 @@ const onServiceChange = (serviceTypes, cb) => {
   });
 }
 
+const allServices = () => {
+  return ServiceDescriptor.getAll();
+}
+
 exports.ServiceDescriptor = ServiceDescriptor;
 exports.r = thinky.r;
 exports.connect = connect;
 
 exports.saveService = saveService;
+exports.allServices = allServices;
 exports.findServicesByType = findServicesByType;
 exports.findServicesByTypes = findServicesByTypes;
 exports.findServiceById = findServiceById;
 exports.onServiceChange = onServiceChange;
+
+exports.STATUS_ONLINE = "Online";
+exports.STATUS_OFFLINE = "Offline";
