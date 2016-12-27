@@ -1,16 +1,16 @@
 'use strict';
 
 const uuid = require('uuid');
-const assert = require('assert');
+const assert = require('chai').assert;
 const model = require('../index.js').model;
 
 /**
  * Discovery model
  * Announce Service
  */
-describe('discovery-model', () => {
-  before(() => {
-
+describe('discovery-model:announce', () => {
+  before((done) => {
+    done();
   });
 
   it('descriptor created when saved', (done) => {
@@ -20,7 +20,8 @@ describe('discovery-model', () => {
       healthCheckRoute: '/health',
       schemaRoute: '/schema',
       timestamp: new Date(),
-      id: uuid.v1()
+      id: uuid.v1(),
+      version: '2.0'
     };
 
     console.log(descriptor);

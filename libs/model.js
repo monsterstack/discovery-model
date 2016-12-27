@@ -9,12 +9,14 @@ const Promise = require('promise');
 
 const ServiceDescriptor = thinky.createModel("ServiceDescriptor", {
   id: String,
+  version: String,
   endpoint: String,
   type: String,
   healthCheckRoute: String,
   schemaRoute: String,
   timestamp: Date,
-  state: String
+  state: String,
+  rtimes: Array
 });
 
 const debug = require('debug')('discovery-model');
@@ -56,9 +58,18 @@ const findServicesByTypes = (types) => {
   });
 }
 
+const findServiceById = (id) => {
+  return ServiceDescriptor.get(id);
+}
+
 const saveService = (service) => {
   let descriptor = new ServiceDescriptor(service);
   return descriptor.save();
+}
+
+const updateService = (service) => {
+  let descriptor = new ServiceDescriptor(service);
+  return descriptor.update();
 }
 
 /**
@@ -99,4 +110,5 @@ exports.connect = connect;
 exports.saveService = saveService;
 exports.findServicesByType = findServicesByType;
 exports.findServicesByTypes = findServicesByTypes;
+exports.findServiceById = findServiceById;
 exports.onServiceChange = onServiceChange;

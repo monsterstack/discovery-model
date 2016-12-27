@@ -1,7 +1,7 @@
 'use strict';
 
 const uuid = require('uuid');
-const assert = require('assert');
+const assert = require('chai').assert;
 const model = require('../index.js').model;
 
 
@@ -9,8 +9,9 @@ const model = require('../index.js').model;
  * Discovery model
  * Find service
  */
-describe('discovery-model', () => {
+describe('discovery-model:find', () => {
   let type = `p${uuid.v1()}`;
+  let id = uuid.v1();
   before((done) => {
     let descriptor = {
       endpoint: 'http://foo.org/players',
@@ -18,8 +19,9 @@ describe('discovery-model', () => {
       healthCheckRoute: '/health',
       schemaRoute: '/schema',
       timestamp: new Date(),
-      id: uuid.v1(),
-      status: 'Online'
+      id: id,
+      status: 'Online',
+      version: '2.0'
     };
 
     model.saveService(descriptor).then((result) => {
@@ -45,6 +47,16 @@ describe('discovery-model', () => {
       done();
     })
   });
+
+  it('descriptor retrieved by id when requested', (done) => {
+    model.findServiceById(id).then((result) => {
+      assert(result, "Result is not null");
+      done();
+    }).error((err) => {
+      assert(err === null, "No error occured");
+      done();
+    });
+  })
 
   after(() => {
 

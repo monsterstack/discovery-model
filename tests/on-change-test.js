@@ -1,7 +1,7 @@
 'use strict';
 const debug = require('debug')('on-change-event-test');
 const uuid = require('uuid');
-const assert = require('assert');
+const assert = require('chai').assert;
 const model = require('../index.js').model;
 
 
@@ -9,7 +9,7 @@ const model = require('../index.js').model;
  * Discovery model
  * On-Change test
  */
-describe('discovery-model', () => {
+describe('discovery-model:change', () => {
   let type = `p${uuid.v1()}`;
   let descriptor = {
     endpoint: 'http://foo.org/foos',
@@ -18,7 +18,8 @@ describe('discovery-model', () => {
     schema: '/schema',
     timestamp: new Date(),
     id: uuid.v1(),
-    status: 'Online'
+    status: 'Online',
+    version: '2.0'
   };
 
   before((done) => {

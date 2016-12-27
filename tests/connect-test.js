@@ -1,5 +1,5 @@
 'use strict';
-const assert = require('assert');
+const assert = require('chai').assert;
 const model = require('../index.js').model;
 const db = model.r;
 
@@ -7,9 +7,9 @@ const db = model.r;
  * Discovery model
  * Test connection to Data Store.
  */
-describe('discovery-model', () => {
-  before(() => {
-
+describe('discovery-model:connect', () => {
+  before((done) => {
+    done();
   });
 
   it('creates db when connected', () => {
