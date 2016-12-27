@@ -68,8 +68,9 @@ const saveService = (service) => {
 }
 
 const updateService = (service) => {
-  let descriptor = new ServiceDescriptor(service);
-  return descriptor.save();
+  return ServiceDescriptor.get(service.id).then((svc) => {
+    svc.merge(service).save();
+  });
 }
 
 /**
