@@ -112,6 +112,7 @@ exports.r = thinky.r;
 exports.connect = connect;
 
 exports.saveService = saveService;
+exports.updateService = updateService;
 exports.allServices = allServices;
 exports.findServicesByType = findServicesByType;
 exports.findServicesByTypes = findServicesByTypes;
