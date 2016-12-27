@@ -68,8 +68,7 @@ const saveService = (service) => {
 }
 
 const updateService = (service) => {
-  let descriptor = new ServiceDescriptor(service);
-  return descriptor.update();
+  return ServiceDescriptor.merge(service).save();
 }
 
 /**
