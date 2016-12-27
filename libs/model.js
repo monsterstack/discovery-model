@@ -104,7 +104,8 @@ const onServiceChange = (serviceTypes, cb) => {
 }
 
 const allServices = () => {
-  return ServiceDescriptor.getAll();
+  let query = new thinky.Query(ServiceDescriptor, {});
+  return query.run();
 }
 
 exports.ServiceDescriptor = ServiceDescriptor;
