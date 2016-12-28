@@ -14,6 +14,7 @@ const ServiceDescriptor = thinky.createModel("ServiceDescriptor", {
   type: String,
   healthCheckRoute: String,
   schemaRoute: String,
+  docsRoute: String,
   timestamp: Date,
   state: String,
   rtimes: Array
