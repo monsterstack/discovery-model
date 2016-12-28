@@ -109,7 +109,9 @@ const allServices = () => {
 }
 
 const deleteService = (service) => {
-  return ServiceDescriptor.deleteAll(service);
+  return ServiceDescriptor.get(service.id).then((service) => {
+    service.delete();
+  });
 }
 
 exports.ServiceDescriptor = ServiceDescriptor;
