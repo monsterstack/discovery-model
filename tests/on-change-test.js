@@ -18,6 +18,8 @@ describe('discovery-model:change', () => {
     schema: '/schema',
     timestamp: new Date(),
     id: uuid.v1(),
+    region: 'us-east-1',
+    stage: 'dev',
     status: 'Online',
     version: '2.0'
   };

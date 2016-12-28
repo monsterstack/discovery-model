@@ -20,6 +20,8 @@ describe('discovery-model:find', () => {
       schemaRoute: '/schema',
       timestamp: new Date(),
       id: id,
+      region: 'us-east-1',
+      stage: 'dev',
       status: 'Online',
       version: '2.0'
     };

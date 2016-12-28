@@ -21,6 +21,8 @@ describe('discovery-model:announce', () => {
       schemaRoute: '/schema',
       timestamp: new Date(),
       id: uuid.v1(),
+      region: 'us-east-1',
+      stage: 'dev',
       version: '2.0'
     };
 
