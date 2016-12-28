@@ -14,9 +14,9 @@ describe('discovery-model:find', () => {
   let id = uuid.v1();
   before((done) => {
     let descriptor = {
-      endpoint: 'http://foo.org/players',
+      endpoint: 'http://google.com',
       type: type,
-      healthCheckRoute: '/health',
+      healthCheckRoute: '/',
       schemaRoute: '/schema',
       timestamp: new Date(),
       id: id,
