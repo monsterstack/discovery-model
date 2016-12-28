@@ -16,7 +16,7 @@ const ServiceDescriptor = thinky.createModel("ServiceDescriptor", {
   schemaRoute: String,
   docsRoute: String,
   timestamp: Date,
-  state: String,
+  status: String,
   rtimes: Array
 });
 
