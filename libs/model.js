@@ -108,6 +108,10 @@ const allServices = () => {
   return ServiceDescriptor.filter({});
 }
 
+const deleteService = (service) => {
+  return ServiceDescriptor.deleteAll(service);
+}
+
 exports.ServiceDescriptor = ServiceDescriptor;
 exports.r = thinky.r;
 exports.connect = connect;
@@ -118,6 +122,7 @@ exports.allServices = allServices;
 exports.findServicesByType = findServicesByType;
 exports.findServicesByTypes = findServicesByTypes;
 exports.findServiceById = findServiceById;
+exports.deleteService = deleteService;
 exports.onServiceChange = onServiceChange;
 
 exports.STATUS_ONLINE = "Online";
