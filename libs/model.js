@@ -67,11 +67,17 @@ const findServiceById = (id) => {
 
 const saveService = (service) => {
   let descriptor = new ServiceDescriptor(service);
+  if(descriptor.status === undefined) {
+    descriptor.status = STATUS_ONLINE;
+  }
   return descriptor.save();
 }
 
 const updateService = (service) => {
   return ServiceDescriptor.get(service.id).then((svc) => {
+    if(svc.status === undefined) {
+      svc.status = STATUS_ONLINE;
+    }
     svc.merge(service).save();
     return svc;
   });
