@@ -19,7 +19,8 @@ const ServiceDescriptor = thinky.createModel("ServiceDescriptor", {
   status: String,
   region: String,
   stage: String,
-  rtimes: Array
+  rtimes: Array,
+  avgTime: Number
 });
 
 const debug = require('debug')('discovery-model');
