@@ -71,6 +71,7 @@ const saveService = (service) => {
   if(descriptor.status === undefined) {
     descriptor.status = STATUS_ONLINE;
   }
+  service.timestamp = new Date();
   return descriptor.save();
 }
 
@@ -79,6 +80,7 @@ const updateService = (service) => {
     if(svc.status === undefined) {
       svc.status = STATUS_ONLINE;
     }
+    svc.timestamp = new Date();
     svc.merge(service).save();
     return svc;
   });
