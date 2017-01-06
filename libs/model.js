@@ -97,9 +97,11 @@ const updateService = (service) => {
  * @see makeChangeNotification
  */
 const onServiceChange = (serviceTypes, cb) => {
-  ServiceDescriptor.filter((service) => {
+  let myFeed = ServiceDescriptor.filter((service) => {
     return thinky.r.expr(serviceTypes).contains(service("type"));
-  }).changes().then((feed) => {
+  }).changes();
+
+  myFeed.then((feed) => {
     feed.each((err, doc) => {
       if(err) {
         debug("Received err from feed");
@@ -113,6 +115,8 @@ const onServiceChange = (serviceTypes, cb) => {
       }
     });
   });
+
+  return myFeed;
 }
 
 const allServices = () => {
