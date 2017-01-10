@@ -65,9 +65,9 @@ const findServicesByTypes = (types, stageFilter, regionFilter, pageDescriptor) =
   let limit = 10;
   if(pageDescriptor) {
     skip = pageDescriptor.page * pageDescriptor.size;
-    limit = pageDescriptor.size;
+    limit = pageDescriptor.size *1;
   }
-  
+
   return ServiceDescriptor.filter((service) => {
     return thinky.r.expr(types).contains(service("type"));
   }).slice(skip, limit);
