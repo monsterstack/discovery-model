@@ -106,7 +106,7 @@ const findServicesByTypes = (types, stageFilter, regionFilter, pageDescriptor) =
     return ServiceDescriptor.filter(filter, (service) => {
       return thinky.r.expr(types).contains(service("type"));
     }).slice(skip, limit).then((docs) => {
-      return return {
+      return {
         page: pageDescriptor,
         elements: docs
       }
