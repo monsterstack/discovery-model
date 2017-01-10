@@ -52,6 +52,22 @@ const connect = (options, dbName) => {
   return p;
 }
 
+const allServices = (stageFilter, regionFilter, pageDescriptor) => {
+  let filter = {};
+  if(stageFilter)
+    filter.stage = stageFilter;
+  if(regionFilter)
+    filter.region = regionFilter;
+  let skip = 0;
+  let limit = 100;
+  if(pageDescriptor) {
+    skip = pageDescriptor.page * pageDescriptor.size;
+    limit = pageDescriptor.size *1;
+  }
+
+  return ServiceDescriptor.filter(filter).slice(skip, limit);
+}
+
 const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => {
   // Need a more nuanced query here.  Need to take into account 'stageFilter', 'regionFilter',
   // and pageDescriptor data (i.e. pageNumber and size)
@@ -182,10 +198,6 @@ const onServiceChange = (serviceTypes, cb) => {
   });
 
   return myFeed;
-}
-
-const allServices = () => {
-  return ServiceDescriptor.filter({});
 }
 
 const deleteService = (service) => {
