@@ -52,14 +52,20 @@ const connect = (options, dbName) => {
   return p;
 }
 
-const findServicesByType = (type) => {
+const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => {
+  // Need a more nuanced query here.  Need to take into account 'stageFilter', 'regionFilter',
+  // and pageDescriptor data (i.e. pageNumber and size)
   return ServiceDescriptor.filter({type: type});
 }
 
-const findServicesByTypes = (types) => {
+const findServicesByTypes = (types, stageFilter, regionFilter, pageDescriptor) => {
+  // Need a more nuanced query here.  Need to take into account 'stageFilter', 'regionFilter',
+  // and pageDescriptor data (i.e. pageNumber and size)
+  let skip = pageDescriptor.page * pageDescriptor.size;
+  let limit = pageDescriptor.size;
   return ServiceDescriptor.filter((service) => {
     return thinky.r.expr(types).contains(service("type"));
-  });
+  }).slice(skip, limit);
 }
 
 const findServiceById = (id) => {
@@ -116,6 +122,8 @@ const onServiceChange = (serviceTypes, cb) => {
           cb(null, makeChangeNotification(doc));
       }
     });
+  }).error((err) => {
+    console.log(err);
   });
 
   return myFeed;
