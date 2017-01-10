@@ -74,7 +74,12 @@ const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => 
     filter.regionFilter = regionFilter;
   }
 
-  return ServiceDescriptor.filter(filter).slice(skip, limit);
+  return ServiceDescriptor.filter(filter).slice(skip, limit).then((docs) => {
+    return {
+      page: pageDescriptor,
+      elements: docs
+    }
+  });
 }
 
 const findServicesByTypes = (types, stageFilter, regionFilter, pageDescriptor) => {
@@ -100,11 +105,21 @@ const findServicesByTypes = (types, stageFilter, regionFilter, pageDescriptor) =
   if(filter.hasOwnProperty('stage') || filter.hasOwnProperty('region')) {
     return ServiceDescriptor.filter(filter, (service) => {
       return thinky.r.expr(types).contains(service("type"));
-    }).slice(skip, limit);
+    }).slice(skip, limit).then((docs) => {
+      return return {
+        page: pageDescriptor,
+        elements: docs
+      }
+    });
   } else {
     return ServiceDescriptor.filter((service) => {
       return thinky.r.expr(types).contains(service("type"));
-    }).slice(skip, limit);
+    }).slice(skip, limit).then((docs) => {
+      return {
+        page: pageDescriptor,
+        elements: docs
+      }
+    });
   }
 }
 
