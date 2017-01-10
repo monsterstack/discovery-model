@@ -65,7 +65,12 @@ const allServices = (stageFilter, regionFilter, pageDescriptor) => {
     limit = pageDescriptor.size *1;
   }
 
-  return ServiceDescriptor.filter(filter).slice(skip, limit);
+  return ServiceDescriptor.filter(filter).slice(skip, limit).then((docs) => {
+    return {
+      page: pageDescriptor,
+      elements: docs
+    }
+  });
 }
 
 const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => {
