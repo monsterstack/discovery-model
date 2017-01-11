@@ -226,5 +226,8 @@ exports.findServiceById = findServiceById;
 exports.deleteService = deleteService;
 exports.onServiceChange = onServiceChange;
 
-exports.STATUS_ONLINE = "Online";
-exports.STATUS_OFFLINE = "Offline";
+const STATUS_ONLINE = "Online";
+const STATUS_OFFLINE = "Offline";
+
+exports.STATUS_ONLINE;
+exports.STATUS_OFFLINE;
