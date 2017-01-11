@@ -40,7 +40,7 @@ describe('discovery-model:find', () => {
     model.findServicesByType(type).then((result) => {
       console.log(result);
       assert(result, "Result is not null");
-      assert(result.length > 0, "Result is not empty");
+      assert(result.elements.length > 0, "Result is not empty");
       console.log(result);
       done();
     }).error((err) => {
