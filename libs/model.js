@@ -1,8 +1,8 @@
 'use strict';
 
-const DB = 'cdsp';
-
-const thinky = require('thinky')({host: 'localhost', port: 28015, db: DB});
+const config = require('config');
+const DB = config.db.name;
+const thinky = require('thinky')({host: config.db.host, port: config.db.port, db: DB});
 const type = thinky.type;
 
 const Promise = require('promise');
