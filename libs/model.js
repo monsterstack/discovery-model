@@ -229,5 +229,5 @@ exports.onServiceChange = onServiceChange;
 const STATUS_ONLINE = "Online";
 const STATUS_OFFLINE = "Offline";
 
-exports.STATUS_ONLINE;
-exports.STATUS_OFFLINE;
+exports.STATUS_ONLINE = STATUS_ONLINE;
+exports.STATUS_OFFLINE = STATUS_OFFLINE;
