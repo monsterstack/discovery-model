@@ -74,6 +74,21 @@ const allServices = (stageFilter, regionFilter, pageDescriptor) => {
   });
 }
 
+const countServices = (stageFilter, regionFilter) => {
+  let filter = {};
+  if(stageFilter) {
+    filter.stage = stageFilter;
+  }
+  if(regionFilter) {
+    filter.region = regionFilter;
+  }
+
+  return ServiceDescriptor.filter(filter).count().then((count) => {
+    return {
+      count: count
+    });
+}
+
 const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => {
   // Need a more nuanced query here.  Need to take into account 'stageFilter', 'regionFilter',
   // and pageDescriptor data (i.e. pageNumber and size)
@@ -225,6 +240,7 @@ exports.findServicesByTypes = findServicesByTypes;
 exports.findServiceById = findServiceById;
 exports.deleteService = deleteService;
 exports.onServiceChange = onServiceChange;
+exports.countServices = countServices;
 
 const STATUS_ONLINE = "Online";
 const STATUS_OFFLINE = "Offline";
