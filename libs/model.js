@@ -86,7 +86,8 @@ const countServices = (stageFilter, regionFilter) => {
   return ServiceDescriptor.filter(filter).count().then((count) => {
     return {
       count: count
-    });
+    }
+  });
 }
 
 const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => {
