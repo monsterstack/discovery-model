@@ -184,7 +184,7 @@ const updateService = (service) => {
 const onServiceChange = (serviceTypes, cb) => {
   let myFeed = ServiceDescriptor.filter((service) => {
     return thinky.r.expr(serviceTypes).contains(service("type"));
-  }).changes();
+  }).changes({squash: 5});
 
   myFeed.then((feed) => {
     feed.each((err, doc) => {
