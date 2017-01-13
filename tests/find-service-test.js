@@ -37,7 +37,7 @@ describe('discovery-model:find', () => {
 
   it('descriptor retrieved when requested', (done) => {
     console.log(type);
-    model.findServicesByType(type).then((result) => {
+    model.findServicesByType(type, null, null, {page:0, size:10}).then((result) => {
       console.log(result);
       assert(result, "Result is not null");
       assert(result.elements.length > 0, "Result is not empty");

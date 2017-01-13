@@ -83,7 +83,7 @@ const countServices = (stageFilter, regionFilter) => {
     filter.region = regionFilter;
   }
   console.log('Counting');
-  return ServiceDescriptor.filter(filter).count().then((count) => {
+  return ServiceDescriptor.count(filter).execute().then((count) => {
     return {
       count: count
     }

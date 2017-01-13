@@ -12,12 +12,13 @@ describe('discovery-model:count', () => {
     done();
   });
 
-  it('count returned when called', () => {
+  it('count returned when called', (done) => {
     model.countServices().then((count) => {
-      assert(count != null, 'count is not null');
+      console.log(count);
       assert(count.count >= 0, 'count is not negative');
       done();
-    }).catch((err) => {
+    }).error((err) => {
+      console.log(err);
       assert(err === null, 'count did not fail');
       done(err);
     });
