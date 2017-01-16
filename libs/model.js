@@ -65,7 +65,7 @@ const allServices = (stageFilter, regionFilter, statusFilter, pageDescriptor) =>
   let limit = 100;
   if(pageDescriptor) {
     skip = pageDescriptor.page * pageDescriptor.size;
-    limit = pageDescriptor.size *1;
+    limit = skip + pageDescriptor.size *1;
   }
 
   return ServiceDescriptor.filter(filter).slice(skip, limit).then((docs) => {
