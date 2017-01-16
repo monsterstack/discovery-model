@@ -13,7 +13,7 @@ describe('discovery-model:count', () => {
   });
 
   it('count returned when called', (done) => {
-    model.countServices().then((count) => {
+    model.countServices(['FooService']).then((count) => {
       console.log(count);
       assert(count.count > 0, 'count is not negative');
       done();
