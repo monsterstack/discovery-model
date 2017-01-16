@@ -194,6 +194,10 @@ const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pag
   }
 }
 
+const findUniqueServiceTypes = (type) => {
+  return ServiceDescriptor.pluck("type").distinct();
+}
+
 const findServiceById = (id) => {
   return ServiceDescriptor.get(id);
 }
@@ -275,6 +279,7 @@ exports.findServiceById = findServiceById;
 exports.deleteService = deleteService;
 exports.onServiceChange = onServiceChange;
 exports.countServices = countServices;
+exports.findUniqueServiceTypes = findUniqueServiceTypes;
 
 const STATUS_ONLINE = "Online";
 const STATUS_OFFLINE = "Offline";
