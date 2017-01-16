@@ -74,7 +74,7 @@ const allServices = (stageFilter, regionFilter, pageDescriptor) => {
   });
 }
 
-const countServices = (stageFilter, regionFilter) => {
+const countServices = (types, stageFilter, regionFilter) => {
   let filter = {};
   if(stageFilter) {
     filter.stage = stageFilter;
@@ -83,16 +83,13 @@ const countServices = (stageFilter, regionFilter) => {
     filter.region = regionFilter;
   }
   console.log('Counting');
-  return ServiceDescriptor.filter(filter).count().execute().then((count) => {
+  return ServiceDescriptor.filter(filter).then((services) => {
+    return thinky.r.expr(types).contains(service("type"));
+  }).count().execute().then((count) => {
     return {
       count: count
     }
   });
-  // thinky.r.table("ServiceDescriptor").count(filter).then((count) => {
-  //   return {
-  //     count: count
-  //   }
-  // });
 }
 
 const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => {
@@ -117,14 +114,11 @@ const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => 
     filter.regionFilter = regionFilter;
   }
 
-  ServiceDescriptor.filter(filter).count().execute().then((count) => {
-    return ServiceDescriptor.filter(filter).slice(skip, limit).then((docs) => {
-      return {
-        page: pageDescriptor,
-        elements: docs,
-        totalCount: count
-      }
-    });
+  return ServiceDescriptor.filter(filter).slice(skip, limit).then((docs) => {
+    return {
+      page: pageDescriptor,
+      elements: docs
+    }
   });
 }
 
