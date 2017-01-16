@@ -117,11 +117,14 @@ const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => 
     filter.regionFilter = regionFilter;
   }
 
-  return ServiceDescriptor.filter(filter).slice(skip, limit).then((docs) => {
-    return {
-      page: pageDescriptor,
-      elements: docs
-    }
+  ServiceDescriptor.filter(filter).count().execute().then((count) => {
+    return ServiceDescriptor.filter(filter).slice(skip, limit).then((docs) => {
+      return {
+        page: pageDescriptor,
+        elements: docs,
+        totalCount: count
+      }
+    });
   });
 }
 
