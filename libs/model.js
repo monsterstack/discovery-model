@@ -156,7 +156,7 @@ const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pag
   let limit = 100;
   if(pageDescriptor) {
     skip = pageDescriptor.page * pageDescriptor.size;
-    limit = skip + pageDescriptor.size *1;
+    limit = skip + (pageDescriptor.size *1);
   }
 
   let filter = {};
@@ -171,7 +171,7 @@ const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pag
   if(statusFilter) {
     filter.status = statusFilter;
   }
-
+  console.log(`Slice ${skip} ${limit}`);
   let performFiltering = false;
   if(filter.hasOwnProperty('stage') || filter.hasOwnProperty('region') || filter.hasOwnProperty('status')) {
     return ServiceDescriptor.filter(filter, (service) => {
