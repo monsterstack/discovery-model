@@ -86,7 +86,6 @@ const countServices = (types, stageFilter, regionFilter) => {
     console.log("Checking with types");
     if(filter.hasOwnProperty("stage") || filter.hasOwnProperty("region")) {
       return ServiceDescriptor.filter(filter, (service) => {
-        console.log(thinky.r.expr(types).contains(service("type")));
         return thinky.r.expr(types).contains(service("type"));
       }).run().then((services) => {
         return {
@@ -95,7 +94,6 @@ const countServices = (types, stageFilter, regionFilter) => {
       });
     } else {
       return ServiceDescriptor.filter((service) => {
-        console.log(thinky.r.expr(types).contains(service("type")));
         return thinky.r.expr(types).contains(service("type"));
       }).run().then((services) => {
         return {
