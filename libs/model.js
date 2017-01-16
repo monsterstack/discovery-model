@@ -122,7 +122,7 @@ const findServicesByType = (type, stageFilter, regionFilter, statusFilter, pageD
   let limit = 100;
   if(pageDescriptor) {
     skip = pageDescriptor.page * pageDescriptor.size;
-    limit = pageDescriptor.size *1;
+    limit = skip + pageDescriptor.size *1;
   }
 
   let filter = {
@@ -156,7 +156,7 @@ const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pag
   let limit = 100;
   if(pageDescriptor) {
     skip = pageDescriptor.page * pageDescriptor.size;
-    limit = pageDescriptor.size *1;
+    limit = skip + pageDescriptor.size *1;
   }
 
   let filter = {};
