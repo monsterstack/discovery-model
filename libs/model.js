@@ -83,9 +83,7 @@ const countServices = (types, stageFilter, regionFilter) => {
     filter.region = regionFilter;
   }
   console.log('Counting');
-  return ServiceDescriptor.filter(filter).then((services) => {
-    return thinky.r.expr(types).contains(service("type"));
-  }).count().execute().then((count) => {
+  return ServiceDescriptor.filter(filter).count().execute().then((count) => {
     return {
       count: count
     }
