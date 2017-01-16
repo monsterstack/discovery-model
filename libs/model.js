@@ -83,11 +83,16 @@ const countServices = (stageFilter, regionFilter) => {
     filter.region = regionFilter;
   }
   console.log('Counting');
-  return ServiceDescriptor.count(filter).execute().then((count) => {
+  return ServiceDescriptor.filter(filter).count().execute().then((count) => {
     return {
       count: count
     }
   });
+  // thinky.r.table("ServiceDescriptor").count(filter).then((count) => {
+  //   return {
+  //     count: count
+  //   }
+  // });
 }
 
 const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => {
