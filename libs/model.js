@@ -53,12 +53,14 @@ const connect = (options, dbName) => {
   return p;
 }
 
-const allServices = (stageFilter, regionFilter, pageDescriptor) => {
+const allServices = (stageFilter, regionFilter, statusFilter, pageDescriptor) => {
   let filter = {};
   if(stageFilter)
     filter.stage = stageFilter;
   if(regionFilter)
     filter.region = regionFilter;
+  if(statusFilter)
+    filter.status = statusFilter;
   let skip = 0;
   let limit = 100;
   if(pageDescriptor) {
@@ -74,7 +76,7 @@ const allServices = (stageFilter, regionFilter, pageDescriptor) => {
   });
 }
 
-const countServices = (types, stageFilter, regionFilter) => {
+const countServices = (types, stageFilter, regionFilter, statusFilter) => {
   let filter = {};
   if(stageFilter) {
     filter.stage = stageFilter;
@@ -82,9 +84,12 @@ const countServices = (types, stageFilter, regionFilter) => {
   if(regionFilter) {
     filter.region = regionFilter;
   }
+  if(statusFilter) {
+    filter.status = statusFilter;
+  }
   if(types) {
     console.log("Checking with types");
-    if(filter.hasOwnProperty("stage") || filter.hasOwnProperty("region")) {
+    if(filter.hasOwnProperty("stage") || filter.hasOwnProperty("region") || filter.hasOwnProperty("status")) {
       return ServiceDescriptor.filter(filter, (service) => {
         return thinky.r.expr(types).contains(service("type"));
       }).run().then((services) => {
@@ -110,7 +115,7 @@ const countServices = (types, stageFilter, regionFilter) => {
   }
 }
 
-const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => {
+const findServicesByType = (type, stageFilter, regionFilter, statusFilter, pageDescriptor) => {
   // Need a more nuanced query here.  Need to take into account 'stageFilter', 'regionFilter',
   // and pageDescriptor data (i.e. pageNumber and size)
   let skip = 0;
@@ -129,7 +134,11 @@ const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => 
   }
 
   if(regionFilter) {
-    filter.regionFilter = regionFilter;
+    filter.region = regionFilter;
+  }
+
+  if(statusFilter) {
+    filter.status = statusFilter;
   }
 
   return ServiceDescriptor.filter(filter).slice(skip, limit).then((docs) => {
@@ -140,7 +149,7 @@ const findServicesByType = (type, stageFilter, regionFilter, pageDescriptor) => 
   });
 }
 
-const findServicesByTypes = (types, stageFilter, regionFilter, pageDescriptor) => {
+const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pageDescriptor) => {
   // Need a more nuanced query here.  Need to take into account 'stageFilter', 'regionFilter',
   // and pageDescriptor data (i.e. pageNumber and size)
   let skip = 0;
@@ -159,8 +168,12 @@ const findServicesByTypes = (types, stageFilter, regionFilter, pageDescriptor) =
     filter.region = regionFilter;
   }
 
+  if(statusFilter) {
+    filter.status = statusFilter;
+  }
+
   let performFiltering = false;
-  if(filter.hasOwnProperty('stage') || filter.hasOwnProperty('region')) {
+  if(filter.hasOwnProperty('stage') || filter.hasOwnProperty('region') || filter.hasOwnProperty('status')) {
     return ServiceDescriptor.filter(filter, (service) => {
       return thinky.r.expr(types).contains(service("type"));
     }).slice(skip, limit).then((docs) => {
