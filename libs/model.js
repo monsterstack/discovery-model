@@ -43,8 +43,8 @@ const makeChangeNotification = (doc) => {
 /**
  * Filter scan
  */
-const filterScan = (filter, service) => {
-  if(filter.hasOwnProperty("types")) {
+const filterScan = (types, filter, service) => {
+  if(types) {
     if(filter.hasOwnProperty('stage') && filter.hasOwnProperty('region') && filter.hasOwnProperty('status')) {
       return thinky.r.expr(types).contains(service("type"))
         .and(service("stage") === filter.stage)
@@ -116,7 +116,7 @@ const countServices = (types, stageFilter, regionFilter, statusFilter) => {
     console.log("Checking with types");
     if(filter.hasOwnProperty("stage") || filter.hasOwnProperty("region") || filter.hasOwnProperty("status")) {
       return ServiceDescriptor.filter((service) => {
-        return filterScan(filter, service);
+        return filterScan(types, filter, service);
       }).run().then((services) => {
         return {
           count: services.length
@@ -200,7 +200,7 @@ const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pag
   let performFiltering = false;
   if(filter.hasOwnProperty('stage') || filter.hasOwnProperty('region') || filter.hasOwnProperty('status')) {
     return ServiceDescriptor.filter((service) => {
-      return filterScan(filter, service);
+      return filterScan(types, filter, service);
     }).slice(skip, limit).then((docs) => {
       return {
         page: pageDescriptor,
