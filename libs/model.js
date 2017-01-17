@@ -259,11 +259,22 @@ const onServiceChange = (serviceTypes, cb) => {
   return myFeed;
 }
 
+/**
+ * Delete Service
+ * @param service to delete
+ */
 const deleteService = (service) => {
-  return ServiceDescriptor.get(service.id).then((service) => {
-    service.delete();
-    return service;
-  });
+  if((typeof service) === "string" ) {
+    return ServiceDescriptor.get(service).then((service) => {
+      service.delete();
+      return service;
+    });
+  } else {
+    return ServiceDescriptor.get(service.id).then((service) => {
+      service.delete();
+      return service;
+    });
+  }
 }
 
 exports.ServiceDescriptor = ServiceDescriptor;
