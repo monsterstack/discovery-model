@@ -151,7 +151,9 @@ const countServices = (types, stageFilter, regionFilter, statusFilter) => {
       });
     }
   } else {
-    return ServiceDescriptor.filter(filter).count().execute().then((count) => {
+    return ServiceDescriptor.filter((service) => {
+      return filterScan(types, filter, service);
+    })).count().execute().then((count) => {
       return {
         count: count
       }
