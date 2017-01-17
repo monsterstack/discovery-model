@@ -79,7 +79,7 @@ const filterScan = (types, filter, service) => {
       val = thinky.r.expr(types).contains(service("type"));
     }
   } else {
-    val = thinky.r.expr([service("type")]).contains(service("type"));
+    val = thinky.r.expr(types).contains(service("type"));
   }
   return val;
 }
@@ -151,13 +151,21 @@ const countServices = (types, stageFilter, regionFilter, statusFilter) => {
       });
     }
   } else {
-    return ServiceDescriptor.filter((service) => {
-      return filterScan(types, filter, service);
-    }).count().execute().then((count) => {
-      return {
-        count: count
-      }
-    });
+    if(filter.hasOwnProperty("stage") || filter.hasOwnProperty("region") || filter.hasOwnProperty("status")) {
+      return ServiceDescriptor.filter((service) => {
+        return filterScan(types, filter, service);
+      }).count().execute().then((count) => {
+        return {
+          count: count
+        }
+      });
+    } else {
+      return ServiceDescriptor.filter({}).run().then((services) => {
+        return {
+          count: services.length
+        }
+      });
+    }
   }
 }
 
