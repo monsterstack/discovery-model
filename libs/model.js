@@ -44,25 +44,28 @@ const makeChangeNotification = (doc) => {
  * Filter scan
  */
 const filterScan = (types, filter, service) => {
+  let val = false;
   if(types) {
     if(filter.hasOwnProperty('stage') && filter.hasOwnProperty('region') && filter.hasOwnProperty('status')) {
-      return thinky.r.expr(types).contains(service("type"))
+      val = thinky.r.expr(types).contains(service("type"))
         .and(service("stage") === filter.stage)
         .and(service("region") === filter.region)
         .and(service("status") === filter.status);
     } else if(filter.hasOwnProperty('stage') && filter.hasOwnProperty('region')) {
-      return thinky.r.expr(types).contains(service("type"))
+      val = thinky.r.expr(types).contains(service("type"))
         .and(service("region") === filter.region)
         .and(service("status") === filter.status);
     } else if(filter.hasOwnProperty('status')) {
-      return thinky.r.expr(types).contains(service("type"))
+      val = thinky.r.expr(types).contains(service("type"))
       .and(service("status") === filter.status);
     } else {
-      return thinky.r.expr(types).contains(service("type"));
+      val = thinky.r.expr(types).contains(service("type"));
     }
   } else {
-    return service != null;
+    val = service != null;
   }
+  console.log(val);
+  return val;
 }
 
 const connect = (options, dbName) => {
