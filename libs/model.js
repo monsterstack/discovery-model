@@ -61,7 +61,7 @@ const filterScan = (types, filter, service) => {
       return thinky.r.expr(types).contains(service("type"));
     }
   } else {
-    throw { message: "Missing types" };
+    return service != null;
   }
 }
 
