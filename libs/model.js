@@ -55,25 +55,25 @@ const filterScan = (types, filter, service) => {
     } else if(filter.hasOwnProperty('region') && filter.hasOwnProperty("status")) {
       console.log(`${filter.region} - ${filter.status}`);
       val = thinky.r.expr(types).contains(service("type"))
-        .and(service("region") === filter.region)
-        .and(service("status") === filter.status);
+        .and(service("region").match(filter.region))
+        .and(service("status").match(filter.status));
     } else if(filter.hasOwnProperty('region') && filter.hasOwnProperty('stage')) {
       console.log(`${filter.stage} - ${filter.region}`);
       val = thinky.r.expr(types).contains(service("type"))
-        .and(service("region") === filter.region)
-        .and(service("stage") === filter.stage);
+        .and(service("region").match(filter.region))
+        .and(service("stage").match(filter.stage));
     } else if(filter.hasOwnProperty('region')) {
       console.log(`${filter.region}`);
       val = thinky.r.expr(types).contains(service("type"))
-      .and(service("region") === filter.region);
+      .and(service("region").match(filter.region));
     } else if(filter.hasOwnProperty('status')) {
       console.log(`${filter.status}`);
       val = thinky.r.expr(types).contains(service("type"))
-      .and(service("status") === filter.status);
+      .and(service("status").match(filter.status));
     } else if(filter.hasOwnProperty('stage')) {
       console.log(`${filter.stage}`);
       val = thinky.r.expr(types).contains(service("type"))
-      .and(service("stage") === filter.stage);
+      .and(service("stage").match(filter.stage));
     } else {
       console.log('All');
       val = thinky.r.expr(types).contains(service("type"));
