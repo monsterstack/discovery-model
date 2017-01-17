@@ -55,6 +55,13 @@ const filterScan = (types, filter, service) => {
       val = thinky.r.expr(types).contains(service("type"))
         .and(service("region") === filter.region)
         .and(service("status") === filter.status);
+    } else if(filter.hasOwnProperty('region') && filter.hasOwnProperty('status')) {
+      val = thinky.r.expr(types).contains(service("type"))
+        .and(service("region") === filter.region)
+        .and(service("status") === filter.status);
+    } else if(filter.hasOwnProperty('region')) {
+      val = thinky.r.expr(types).contains(service("type"))
+      .and(service("region") === filter.region);
     } else if(filter.hasOwnProperty('status')) {
       val = thinky.r.expr(types).contains(service("type"))
       .and(service("status") === filter.status);
