@@ -175,7 +175,7 @@ const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pag
   let performFiltering = false;
   if(filter.hasOwnProperty('stage') || filter.hasOwnProperty('region') || filter.hasOwnProperty('status')) {
     return ServiceDescriptor.filter(filter, (service) => {
-      return thinky.r.expr(types).contains(service("type"));
+      return thinky.r.expr(types).contains(service("type")).and(service("stage") == filter.stage).and(service("region") == filter.region).and(service("status") == filter.status);
     }).slice(skip, limit).then((docs) => {
       return {
         page: pageDescriptor,
