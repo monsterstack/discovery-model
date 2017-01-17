@@ -90,8 +90,20 @@ const countServices = (types, stageFilter, regionFilter, statusFilter) => {
   if(types) {
     console.log("Checking with types");
     if(filter.hasOwnProperty("stage") || filter.hasOwnProperty("region") || filter.hasOwnProperty("status")) {
-      return ServiceDescriptor.filter(filter, (service) => {
-        return thinky.r.expr(types).contains(service("type"));
+      return ServiceDescriptor.filter((service) => {
+        if(filter.hasOwnProperty('stage') && filter.hasOwnProperty('region') && filter.hasOwnProperty('status')) {
+          return thinky.r.expr(types).contains(service("type"))
+            .and(service("stage") === filter.stage)
+            .and(service("region") === filter.region)
+            .and(service("status") === filter.status);
+        } else if(filter.hasOwnProperty('stage') && filter.hasOwnProperty('region')) {
+          return thinky.r.expr(types).contains(service("type"))
+            .and(service("stage") === filter.stage)
+            .and(service("region") === filter.region);
+        } else if(filter.hasOwnProperty('stage')) {
+          return thinky.r.expr(types).contains(service("type"))
+            .and(service("stage") === filter.stage);
+        }
       }).run().then((services) => {
         return {
           count: services.length
@@ -174,8 +186,20 @@ const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pag
   console.log(`Slice ${skip} ${limit}`);
   let performFiltering = false;
   if(filter.hasOwnProperty('stage') || filter.hasOwnProperty('region') || filter.hasOwnProperty('status')) {
-    return ServiceDescriptor.filter(filter, (service) => {
-      return thinky.r.expr(types).contains(service("type")).and(service("stage") == filter.stage).and(service("region") == filter.region).and(service("status") == filter.status);
+    return ServiceDescriptor.filter((service) => {
+      if(filter.hasOwnProperty('stage') && filter.hasOwnProperty('region') && filter.hasOwnProperty('status')) {
+        return thinky.r.expr(types).contains(service("type"))
+          .and(service("stage") === filter.stage)
+          .and(service("region") === filter.region)
+          .and(service("status") === filter.status);
+      } else if(filter.hasOwnProperty('stage') && filter.hasOwnProperty('region')) {
+        return thinky.r.expr(types).contains(service("type"))
+          .and(service("stage") === filter.stage)
+          .and(service("region") === filter.region);
+      } else if(filter.hasOwnProperty('stage')) {
+        return thinky.r.expr(types).contains(service("type"))
+          .and(service("stage") === filter.stage);
+      }
     }).slice(skip, limit).then((docs) => {
       return {
         page: pageDescriptor,
