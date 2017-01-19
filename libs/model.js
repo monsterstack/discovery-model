@@ -339,6 +339,7 @@ exports.allServices = allServices;
 exports.findServicesByType = findServicesByType;
 exports.findServicesByTypes = findServicesByTypes;
 exports.findServiceById = findServiceById;
+
 exports.deleteService = deleteService;
 exports.onServiceChange = onServiceChange;
 exports.countServices = countServices;
