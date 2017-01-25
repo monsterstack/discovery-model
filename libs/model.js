@@ -254,6 +254,16 @@ const findServiceById = (id) => {
   return ServiceDescriptor.get(id);
 }
 
+const findServiceByEndpoint = (endpoint) => {
+  return ServiceDescriptor.filter({"endpoint": endpoint}).then((docs) => {
+    if(docs.length > 0) {
+      return docs[0];
+    } else {
+      return null;
+    }
+  });
+}
+
 const saveService = (service) => {
   let descriptor = new ServiceDescriptor(service);
   if(descriptor.status === undefined) {
@@ -344,6 +354,7 @@ exports.deleteService = deleteService;
 exports.onServiceChange = onServiceChange;
 exports.countServices = countServices;
 exports.findUniqueServiceTypes = findUniqueServiceTypes;
+exports.findServiceByEndpoint = findServiceByEndpoint;
 
 const STATUS_ONLINE = "Online";
 const STATUS_OFFLINE = "Offline";
