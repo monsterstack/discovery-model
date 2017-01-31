@@ -317,8 +317,10 @@ const onServiceChange = (serviceTypes, cb) => {
       } else {
         debug("Received document from feed");
         debug(doc);
-        if(doc)
-          cb(null, makeChangeNotification(doc));
+        if(doc) {
+          if(serviceTypes.indexOf(doc.type) != -1)
+            cb(null, makeChangeNotification(doc));
+        }
       }
     });
   }).error((err) => {
