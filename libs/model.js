@@ -36,7 +36,8 @@ const makeChangeNotification = (doc) => {
    * it out of the document object and assign the change to the value
    * Accessing the underlying record (i.e. doc) will allow you to `closeFeed()`
    */
-  return { record: doc, change: doc, deleted: doc.getNewValue() == null, isNew: doc.getOldValue() === null };
+  console.log(doc);
+  return { record: doc, change: doc, deleted: doc.isSaved() == false, isNew: doc.getOldValue() === null };
 }
 
 /**
