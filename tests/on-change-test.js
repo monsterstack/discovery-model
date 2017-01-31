@@ -28,25 +28,50 @@ describe('discovery-model:change', () => {
     done();
   });
 
-  it('change received when record added', function(done) {
-    this.timeout(9000);
-    model.onServiceChange(['FooService'], (err, change) => {
+  it('change received when record added / updated / deleted', function(done) {
+    this.timeout(12000);
+    let count = 0;
+    model.onServiceChange(['FooService','BarService'], (err, change) => {
       debug("Received change");
-      debug(change);
       assert(change, "Result is not null");
-      done();
+      count = count+1;
+      if(count == 3)
+        done();
     });
 
     setTimeout( () => {
       model.saveService(descriptor).then((result) => {
         assert(result, "Descriptor was saved");
+        descriptor.status = 'Offline';
+        model.updateService(descriptor).then((result) => {
+          model.deleteService(descriptor.id).then((result) => {
+            assert(result, "Descriptor was saved");
+          }).error((err) => {
+            console.log(err);
+            assert(err === null, "Failure did not occur");
+          });
+        });
       }).error((err) => {
         assert(err === null, "Failure did not occur");
       });
     }, 5000);
+
+    setTimeout( () => {
+      if(count === 4) {
+        done();
+      } else {
+        done(new Error("Missing Change Event"));
+      }
+    }, 7000);
+
   });
 
   after(() => {
-
+    model.ServiceDescriptor.filter({type: "FooService"}).then((docs) => {
+      console.log("db cleared");
+      docs.forEach((doc) => {
+        doc.delete();
+      });
+    });
   });
 });

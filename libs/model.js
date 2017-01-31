@@ -36,7 +36,6 @@ const makeChangeNotification = (doc) => {
    * it out of the document object and assign the change to the value
    * Accessing the underlying record (i.e. doc) will allow you to `closeFeed()`
    */
-  console.log(doc);
   return { record: doc, change: doc, deleted: doc.isSaved() == false, isNew: doc.getOldValue() === null };
 }
 
@@ -299,7 +298,7 @@ const updateService = (service) => {
 const onServiceChange = (serviceTypes, cb) => {
   let myFeed = ServiceDescriptor.filter((service) => {
     return thinky.r.expr(serviceTypes).contains(service("type"));
-  }).changes({squash: 5});
+  }).changes({squash: true});
 
   myFeed.then((feed) => {
     feed.each((err, doc) => {
