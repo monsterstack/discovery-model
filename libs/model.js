@@ -9,11 +9,13 @@ const Promise = require('promise');
 
 const ServiceDescriptor = thinky.createModel("ServiceDescriptor", {
   id: String,
+  class: String,
   version: String,
   endpoint: String,
   type: String,
   healthCheckRoute: String,
   schemaRoute: String,
+  schemaPath: String,
   docsPath: String,
   timestamp: Date,
   status: String,
