@@ -176,6 +176,17 @@ const countServices = (types, stageFilter, regionFilter, statusFilter) => {
   }
 }
 
+const markWorkersOffline = () => {
+  let p = new Promise((resolve, reject) => {
+    ServiceDescriptor.filter({class: 'Worker'}).then((services) => {
+      services.forEach((service) => {
+        service.merge({status: 'Offline'}).update();
+      })
+    })
+  });
+  return p;
+}
+
 const findServicesByType = (type, stageFilter, regionFilter, statusFilter, pageDescriptor) => {
   // Need a more nuanced query here.  Need to take into account 'stageFilter', 'regionFilter',
   // and pageDescriptor data (i.e. pageNumber and size)
@@ -365,6 +376,8 @@ exports.onServiceChange = onServiceChange;
 exports.countServices = countServices;
 exports.findUniqueServiceTypes = findUniqueServiceTypes;
 exports.findServiceByEndpoint = findServiceByEndpoint;
+
+exports.markWorkersOffline = markWorkersOffline;
 
 const STATUS_ONLINE = "Online";
 const STATUS_OFFLINE = "Offline";
