@@ -180,7 +180,7 @@ const markWorkersOffline = () => {
   let p = new Promise((resolve, reject) => {
     ServiceDescriptor.filter({class: 'Worker'}).then((services) => {
       services.forEach((service) => {
-        service.merge({status: 'Offline'}).update();
+        service.merge({status: 'Offline'}).save();
       })
     })
   });
@@ -191,7 +191,7 @@ const markWorkersOnline = () => {
   let p = new Promise((resolve, reject) => {
     ServiceDescriptor.filter({class: 'Worker'}).then((services) => {
       services.forEach((service) => {
-        service.merge({status: 'Online'}).update();
+        service.merge({status: 'Online'}).save();
       })
     })
   });
