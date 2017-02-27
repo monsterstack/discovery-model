@@ -2,7 +2,13 @@
 
 const config = require('config');
 const DB = config.db.name;
-const thinky = require('thinky')({host: config.db.host, port: config.db.port, db: DB});
+const thinky = require('thinky')({
+  host: config.db.host, 
+  port: config.db.port, 
+  max: 25,
+  buffer: 5,
+  db: DB
+});
 const type = thinky.type;
 
 const Promise = require('promise');
