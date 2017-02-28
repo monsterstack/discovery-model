@@ -31,8 +31,6 @@ const ServiceDescriptor = thinky.createModel("ServiceDescriptor", {
   avgTime: Number
 });
 
-const debug = require('debug')('discovery-model');
-
 // Make sure that an index on date is available
 ServiceDescriptor.ensureIndex("type");
 
