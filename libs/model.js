@@ -1,6 +1,7 @@
 'use strict';
 
 const config = require('config');
+const debug = require('debug')('discovery-model');
 const DB = config.db.name;
 const thinky = require('thinky')({
   host: config.db.host, 
