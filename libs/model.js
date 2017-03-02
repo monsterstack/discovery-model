@@ -324,12 +324,12 @@ const updateService = (service) => {
       svc.status = STATUS_ONLINE;
     }
 
-    if(descriptor.rtimes === undefined) {
-      descriptor.rtimes = [];
+    if(service.rtimes === undefined) {
+      service.rtimes = [];
     }
 
-    if(descriptor.avgTime === undefined) {
-      descriptor.avgTime = 0;
+    if(service.avgTime === undefined) {
+      service.avgTime = 0;
     }
 
     svc.timestamp = new Date();
