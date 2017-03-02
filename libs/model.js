@@ -305,6 +305,15 @@ const saveService = (service) => {
   if(descriptor.status === undefined) {
     descriptor.status = STATUS_ONLINE;
   }
+
+  if(descriptor.rtimes === undefined) {
+    descriptor.rtimes = [];
+  }
+
+  if(descriptor.avgTime === undefined) {
+    descriptor.avgTime = 0;
+  }
+
   service.timestamp = new Date();
   return descriptor.save();
 }
@@ -314,6 +323,15 @@ const updateService = (service) => {
     if(svc.status === undefined) {
       svc.status = STATUS_ONLINE;
     }
+
+    if(descriptor.rtimes === undefined) {
+      descriptor.rtimes = [];
+    }
+
+    if(descriptor.avgTime === undefined) {
+      descriptor.avgTime = 0;
+    }
+
     svc.timestamp = new Date();
     svc.merge(service).save();
     return svc;
