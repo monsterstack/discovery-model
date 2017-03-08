@@ -1,5 +1,4 @@
 'use strict';
-const assert = require('chai').assert;
 const model = require('../index.js').model;
 const db = model.r;
 
@@ -15,11 +14,11 @@ describe('discovery-model:count', () => {
   it('count returned when called', (done) => {
     model.countServices(['FooService']).then((count) => {
       console.log(count);
-      assert(count.count > 0, 'count is not negative');
-      done();
+      if(count.count > 0) 
+        done(new Error('Expected `0` count'));
+      else 
+        done();
     }).error((err) => {
-      console.log(err);
-      assert(err === null, 'count did not fail');
       done(err);
     });
   });

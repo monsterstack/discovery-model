@@ -101,11 +101,15 @@ const filterScan = (types, filter, service) => {
 const connect = (options, dbName) => {
   let db = thinky.r;
   let p = new Promise((reject, resolve) => {
+    options.db = dbName || DB;
     db.connect(options, (err, conn) => {
-      assert(err === null);
-      assert(conn, 'connection is not null');
       if(err) reject(err);
-      else resolve(conn.db(dbName || DB));
+      else {
+        if(conn)
+          resolve(db);
+        else
+          reject(new Error(`Null connection returned for ${options.host}`));
+      }
     });
   });
   return p;

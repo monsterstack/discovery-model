@@ -1,7 +1,6 @@
 'use strict';
 
 const uuid = require('uuid');
-const assert = require('chai').assert;
 const model = require('../index.js').model;
 
 
@@ -27,11 +26,10 @@ describe('discovery-model:find', () => {
     };
 
     model.saveService(descriptor).then((result) => {
-      assert(result, "Descriptor was saved");
       done();
     }).error((err) => {
-      assert(err === null, "Failure did not occur");
-      done();
+      
+      done(err);
     });
   });
 
@@ -39,24 +37,21 @@ describe('discovery-model:find', () => {
     console.log(type);
     model.findServicesByType(type, null, null, {page:0, size:10}).then((result) => {
       console.log(result);
-      assert(result, "Result is not null");
-      assert(result.elements.length > 0, "Result is not empty");
-      console.log(result);
-      done();
+      if(result === undefined)
+        done(new Error('Expecting defined result'));
+      else 
+        done();
     }).error((err) => {
       console.log(err);
-      assert(err === null, "No error occurred");
-      done();
+      done(err);
     })
   });
 
   it('descriptor retrieved by id when requested', (done) => {
     model.findServiceById(id).then((result) => {
-      assert(result, "Result is not null");
       done();
     }).error((err) => {
-      assert(err === null, "No error occured");
-      done();
+      done(err);
     });
   })
 
