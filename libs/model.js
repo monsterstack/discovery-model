@@ -43,9 +43,9 @@ const makeChangeNotification = (doc) => {
    * it out of the document object and assign the change to the value
    * Accessing the underlying record (i.e. doc) will allow you to `closeFeed()`
    */
-  console.log(doc);
-  console.log(`Saved ${doc.isSaved() && doc.getOldValue() == null}`);
-  console.log(`Deleted ${doc.isSaved() === false && doc.getOldValue() === undefined}`);
+  debug(doc);
+  debug(`Saved ${doc.isSaved() && doc.getOldValue() == null}`);
+  debug(`Deleted ${doc.isSaved() === false && doc.getOldValue() === undefined}`);
   return {
     record: doc,
     change: doc,
@@ -61,35 +61,35 @@ const filterScan = (types, filter, service) => {
   let val = false;
   if(types) {
     if(filter.hasOwnProperty('stage') && filter.hasOwnProperty('region') && filter.hasOwnProperty('status')) {
-      console.log(`${filter.stage} - ${filter.region} - ${filter.status}`);
+      debug(`${filter.stage} - ${filter.region} - ${filter.status}`);
       val = thinky.r.expr(types).contains(service("type"))
         .and(service("stage").eq(filter.stage))
         .and(service("region").eq(filter.region))
         .and(service("status").eq(filter.status));
     } else if(filter.hasOwnProperty('region') && filter.hasOwnProperty("status")) {
-      console.log(`${filter.region} - ${filter.status}`);
+      debug(`${filter.region} - ${filter.status}`);
       val = thinky.r.expr(types).contains(service("type"))
         .and(service("region").eq(filter.region))
         .and(service("status").eq(filter.status));
     } else if(filter.hasOwnProperty('region') && filter.hasOwnProperty('stage')) {
-      console.log(`${filter.stage} - ${filter.region}`);
+      debug(`${filter.stage} - ${filter.region}`);
       val = thinky.r.expr(types).contains(service("type"))
         .and(service("region").eq(filter.region))
         .and(service("stage").eq(filter.stage));
     } else if(filter.hasOwnProperty('region')) {
-      console.log(`${filter.region}`);
+      debug(`${filter.region}`);
       val = thinky.r.expr(types).contains(service("type"))
       .and(service("region").eq(filter.region));
     } else if(filter.hasOwnProperty('status')) {
-      console.log(`${filter.status}`);
+      debug(`${filter.status}`);
       val = thinky.r.expr(types).contains(service("type"))
       .and(service("status").eq(filter.status));
     } else if(filter.hasOwnProperty('stage')) {
-      console.log(`${filter.stage}`);
+      debug(`${filter.stage}`);
       val = thinky.r.expr(types).contains(service("type"))
       .and(service("stage").eq(filter.stage));
     } else {
-      console.log('All');
+      debug('All');
       val = thinky.r.expr(types).contains(service("type"));
     }
   } else {
@@ -387,12 +387,14 @@ const onServiceChange = (serviceTypes, cb) => {
 const deleteService = (service) => {
   if((typeof service) === "string" ) {
     return ServiceDescriptor.get(service).then((service) => {
-      service.delete();
+      if(service)
+        service.delete();
       return service;
     });
   } else {
     return ServiceDescriptor.get(service.id).then((service) => {
-      service.delete();
+      if(service)
+        service.delete();
       return service;
     });
   }
