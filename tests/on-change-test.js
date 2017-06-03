@@ -68,7 +68,6 @@ describe('discovery-model:change', () => {
 
   after(() => {
     model.ServiceDescriptor.filter({type: "FooService"}).then((docs) => {
-      console.log("db cleared");
       docs.forEach((doc) => {
         doc.delete();
       });
