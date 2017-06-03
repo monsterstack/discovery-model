@@ -34,15 +34,12 @@ describe('discovery-model:find', () => {
   });
 
   it('descriptor retrieved when requested', (done) => {
-    console.log(type);
     model.findServicesByType(type, null, null, {page:0, size:10}).then((result) => {
-      console.log(result);
       if(result === undefined)
         done(new Error('Expecting defined result'));
       else 
         done();
     }).error((err) => {
-      console.log(err);
       done(err);
     })
   });

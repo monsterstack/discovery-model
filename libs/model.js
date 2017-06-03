@@ -150,7 +150,6 @@ const countServices = (types, stageFilter, regionFilter, statusFilter) => {
     filter.status = statusFilter;
   }
   if(types) {
-    console.log("Checking with types");
     if(filter.hasOwnProperty("stage") || filter.hasOwnProperty("region") || filter.hasOwnProperty("status")) {
       return ServiceDescriptor.filter((service) => {
         return filterScan(types, filter, service);
@@ -263,7 +262,7 @@ const findServicesByTypes = (types, stageFilter, regionFilter, statusFilter, pag
   if(statusFilter) {
     filter.status = statusFilter;
   }
-  console.log(`Slice ${skip} ${limit}`);
+
   let performFiltering = false;
   if(filter.hasOwnProperty('stage') || filter.hasOwnProperty('region') || filter.hasOwnProperty('status')) {
     return ServiceDescriptor.filter((service) => {

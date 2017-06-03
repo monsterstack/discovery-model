@@ -26,15 +26,10 @@ describe('discovery-model:announce', () => {
       version: '2.0'
     };
 
-    console.log(descriptor);
     model.saveService(descriptor).then((result) => {
-      console.log("Yeah')");
-      console.log(result);
       assert(result != null, "Descriptor was saved");
       done();
     }).error((err) => {
-      console.log("Error");
-      console.log(err);
       assert(err === null, "Failure did not occur");
       done();
     });
